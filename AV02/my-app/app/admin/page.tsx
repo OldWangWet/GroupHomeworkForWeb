@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { getUsers, getPlatformStats } from '../api/mockApi'
 import { User, PlatformStats } from '@/types'
 import Link from 'next/link'
+import AppLayout from '../../components/AppLayout'
 
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([])
@@ -34,6 +35,7 @@ export default function AdminPage() {
   }
 
   return (
+    <AppLayout>
     <div className="container mx-auto px-4">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       
@@ -82,6 +84,7 @@ export default function AdminPage() {
         ))}
       </div>
     </div>
+    </AppLayout>
   )
 }
 

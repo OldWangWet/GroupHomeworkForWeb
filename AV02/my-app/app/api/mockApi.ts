@@ -96,6 +96,12 @@ const getInitialUsers = (): User[] => {
 
 let mockUsers: User[] = getInitialUsers();
 
+const saveUsers = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
+  }
+};
+
 export const getUsers = (): Promise<User[]> => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(mockUsers), 500);
@@ -126,9 +132,7 @@ export const updateUser = (updatedUser: User): Promise<User> => {
       const index = mockUsers.findIndex(u => u.id === updatedUser.id);
       if (index !== -1) {
         mockUsers[index] = updatedUser;
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
-        }
+        saveUsers();
       }
       resolve(updatedUser);
     }, 500);
@@ -168,11 +172,52 @@ export const deleteAd = (userId: number, adId: number): Promise<void> => {
       const userIndex = mockUsers.findIndex(u => u.id === userId);
       if (userIndex !== -1) {
         mockUsers[userIndex].ads = mockUsers[userIndex].ads.filter(ad => ad.id !== adId);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('mockUsers', JSON.stringify(mockUsers));
-        }
+        saveUsers();
       }
       resolve();
+    }, 500);
+  });
+};
+
+export const login = (username: string, password: string): Promise<User | null> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const user = mockUsers.find(u => u.username === username && u.password === password);
+      resolve(user || null);
+    }, 500);
+  });
+};
+
+export const register = (username: string, password: string): Promise<User | null> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const existingUser = mockUsers.find(u => u.username === username);
+      if (existingUser) {
+        if (existingUser.password === password) {
+          resolve(existingUser);
+        } else {
+          resolve(null);
+        }
+      } else {
+        const newUser: User = {
+          id: mockUsers.length + 1,
+          role: 0,
+          username,
+          password,
+          image: `/placeholder.svg?height=100&width=100&text=${username.charAt(0).toUpperCase()}`,
+          apiEndpoint: `/api/user/${mockUsers.length + 1}`,
+          description: "New user",
+          profitShare: 5,
+          ads: [],
+          receivedTraffic: 0,
+          generatedTraffic: 0,
+          receivedRevenue: 0,
+          generatedRevenue: 0,
+        };
+        mockUsers.push(newUser);
+        saveUsers();
+        resolve(newUser);
+      }
     }, 500);
   });
 };
