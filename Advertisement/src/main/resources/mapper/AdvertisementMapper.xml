@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wst.advertisementv03.demos.mapper.AdvertisementMapper">
+
+
+    <select id="getadvertisements" resultType="Advertisement">
+        SELECT * FROM adforuser${id};
+    </select>
+    <update id="emptyadvertisements">
+        truncate adforuser${id};
+    </update>
+    <insert id="updateadvertisements">
+        INSERT INTO adforuser${id}
+        (name, category, description, image, jumpurl, `impressions`, clicks, conversions)
+        VALUES
+        <foreach collection="advertisements" item="advertisement" separator=",">
+            (#{advertisement.name}, #{advertisement.category}, #{advertisement.description},
+            #{advertisement.image}, #{advertisement.jumpurl}, #{advertisement.impressions},
+            #{advertisement.clicks}, #{advertisement.conversions})
+        </foreach>
+    </insert>
+
+
+
+
+
+
+</mapper>
+

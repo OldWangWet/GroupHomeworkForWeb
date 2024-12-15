@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wst.advertisementv03.demos.mapper.FingerprintMapper">
+
+    <!-- Add Fingerprint -->
+    <insert id="addFingerprint">
+        INSERT INTO fingerprint (md5id, electronics, entertainment, dailygoods, food)
+        VALUES (#{fingerprint.md5id}, #{fingerprint.electronics}, #{fingerprint.entertainment}, #{fingerprint.dailygoods}, #{fingerprint.food});
+    </insert>
+
+    <!-- Get Fingerprint by md5id -->
+    <select id="getFingerprintById" resultType="Fingerprint">
+        SELECT md5id, electronics, entertainment, dailygoods, food
+        FROM fingerprint
+        WHERE md5id = #{md5id};
+    </select>
+
+    <insert id="init">
+        INSERT IGNORE INTO fingerprint (md5id)
+        VALUES (#{md5id});
+    </insert>
+    <select id="getin" resultType="Fingerprint">
+        SELECT md5id, electronics, entertainment, dailygoods, food
+        FROM fingerprint
+        WHERE md5id = #{md5id};
+    </select>
+    <select id="getad" resultType="Advertisement">
+        SELECT *
+        FROM adforuser${id}
+        WHERE category = #{category}
+        ORDER BY id ASC
+        LIMIT 1
+    </select>
+
+
+    <!-- Update Fingerprint -->
+    <update id="updateFingerprint" parameterType="Fingerprint">
+        UPDATE fingerprint
+        SET electronics = electronics + IFNULL(#{fingerprint.electronics}, 0),
+            entertainment = entertainment + IFNULL(#{fingerprint.entertainment}, 0),
+            dailygoods = dailygoods + IFNULL(#{fingerprint.dailygoods}, 0),
+            food = food + IFNULL(#{fingerprint.food}, 0)
+        WHERE md5id = #{fingerprint.md5id};
+    </update>
+
+
+</mapper>

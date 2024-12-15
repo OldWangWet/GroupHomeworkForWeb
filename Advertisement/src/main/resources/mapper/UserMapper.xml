@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wst.advertisementv03.demos.mapper.UserMapper">
+
+
+    <insert id="createtable" parameterType="Integer">
+        create table adforuser${id}(
+            `id` int NOT NULL AUTO_INCREMENT,
+            `name` varchar(200) default null,
+            `category` varchar(200) default null,
+            `image` varchar(2000) default null,
+            `description` text default null,
+            `jumpurl` varchar(2000) default null,
+            `impressions` int default 0,
+            `clicks` int default 0,
+            `conversions` int default 0,
+            PRIMARY KEY (`id`)
+        )engine=InnoDB;
+    </insert>
+    <insert id="createadlog" parameterType="Integer">
+        create table adlog${id}(
+            `id` int not null auto_increment,
+            `createyear` int default null,
+            `createmonth` int default null,
+            `createday` int default null,
+            `operation` int default null,
+            `category` varchar(200) default null,
+            primary key (`id`)
+        )engine=InnoDB;
+    </insert>
+    <insert id="createpublog" parameterType="Integer">
+        create table publog${id}(
+           `id` int not null auto_increment,
+           `createyear` int default null,
+           `createmonth` int default null,
+           `createday` int default null,
+           `operation` int default null,
+           `category` varchar(200) default null,
+           primary key (`id`)
+        )engine=InnoDB;
+    </insert>
+
+
+
+
+
+
+</mapper>
+

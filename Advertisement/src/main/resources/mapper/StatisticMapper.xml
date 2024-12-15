@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wst.advertisementv03.demos.mapper.StatisticMapper">
+
+
+    <insert id="addStatistic1" parameterType="map">
+        INSERT INTO adlog${id} (
+            id,
+            createyear,
+            createmonth,
+            createday,
+            operation,
+            category
+        ) VALUES (
+                     #{statistic.id},
+                     #{statistic.createyear},
+                     #{statistic.createmonth},
+                     #{statistic.createday},
+                     #{statistic.operation},
+                     #{statistic.category}
+                 )
+    </insert>
+    <insert id="addStatistic2" parameterType="map">
+        INSERT INTO publog${id} (
+            id,
+            createyear,
+            createmonth,
+            createday,
+            operation,
+            category
+        ) VALUES (
+                     #{statistic.id},
+                     #{statistic.createyear},
+                     #{statistic.createmonth},
+                     #{statistic.createday},
+                     #{statistic.operation},
+                     #{statistic.category}
+                 )
+    </insert>
+    <select id="getStatistic1" resultType="Statistic">
+        select * from adlog${id}
+    </select>
+    <select id="getStatistic2" resultType="Statistic">
+        select * from publog${id}
+    </select>
+    <select id="findid" resultType="Integer">
+        select id from user
+        where originurl =#{customHeader}
+    </select>
+
+
+
+
+
+
+
+</mapper>
+
