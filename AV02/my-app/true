@@ -1,0 +1,10 @@
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: 'advertiser' | 'publisher' | 'admin';
+  status: 'active' | 'inactive' | 'pending';
+  createdAt: string;
+  lastLogin: string;
+}
+
